@@ -1,1 +1,5 @@
-<p>info works!</p>
+<div class="centered">
+    <h2>{{ title }}</h2>
+    <p *ngIf="text">{{ text }}</p>
+    <ng-content></ng-content>
+</div>

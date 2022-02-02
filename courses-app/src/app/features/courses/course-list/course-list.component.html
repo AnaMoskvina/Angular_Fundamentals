@@ -1,0 +1,14 @@
+<ul *ngFor="let course of courses; let i=index" class="container">
+    <app-course-card [course]="course" #course>
+        <app-button [buttonText]="buttonText" (click)="showItem(course)">
+        </app-button>
+        <ng-template [ngIf]="editable">
+            <app-button [buttonIcon]="editIcon" (click)="editItem(course)">
+            </app-button>
+            <app-button [buttonIcon]="removeIcon" (click)="removeItem(course)">
+            </app-button>
+        </ng-template>
+    </app-course-card>
+</ul>
+
+

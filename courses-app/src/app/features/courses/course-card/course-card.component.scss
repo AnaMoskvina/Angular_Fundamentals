@@ -1,0 +1,20 @@
+.card {
+    border-radius: 5px;
+    border: 1px solid #0d6efd;
+    padding: 20px 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    text-align: justify;
+    grid-gap: 20px;
+    background-color: rgb(249, 251, 255);
+}
+
+.subtitle {
+    font-weight: bold;
+}
+
+.buttons {
+    gap: 12px;
+    display: flex;
+    justify-content: center;
+}

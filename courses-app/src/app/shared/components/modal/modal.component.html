@@ -1,0 +1,16 @@
+<div class="overlay">
+    <div class="modal-window">
+        <app-button 
+            [buttonIcon]="closeButtonIcon"
+            class="close-icon"
+            (click)="getResult(false)"></app-button>
+        <h2>{{ title }}</h2>
+        <p>{{ message }}</p>
+        <div class="buttons">
+        <app-button [buttonText]="okButtonText"
+            (click)="getResult(true)"></app-button>
+        <app-button [buttonText]="cancelButtonText"
+            (click)="getResult(false)"></app-button>
+        </div>
+    </div>
+</div>

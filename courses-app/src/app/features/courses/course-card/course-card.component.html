@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-left">
+        <h3>{{ course.title }}</h3>
+        <p>{{ course.description }}</p>
+    </div>
+    <div class="card-right">
+        <p><span class="subtitle">Authors: </span>{{ getAuthors() }}</p>
+        <p><span class="subtitle">Duration: </span>{{ getDuration()}}</p>
+        <p><span class="subtitle">Created: </span>{{ getDate() }}</p>
+        <div class="buttons">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

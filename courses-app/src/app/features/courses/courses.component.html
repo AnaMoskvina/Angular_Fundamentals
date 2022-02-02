@@ -1,2 +1,29 @@
-<p>courses works!</p>
-<app-button [buttonText]="text" [buttonIcon]="faCoffee"></app-button>
+<app-header>
+    <ng-template [ngIf]="isLoggedIn">
+        <p>{{ name }}</p>
+        <app-button [buttonText]="buttonText"
+        (click)="logout()">
+        </app-button>
+    </ng-template>
+</app-header>
+<app-info [title]="infoTitle" [text]="infoText">
+    <app-button [buttonText]="infoButtonText"
+    (click)="addCourse()">
+    </app-button>
+</app-info>
+<app-course-list 
+    [courses]="courses"
+    [editable]="editable"
+    (removeEvent)="removeItem($event)"
+    (editEvent)="editItem($event)"
+    (showEvent)="showItem($event)">
+</app-course-list>
+<ng-template [ngIf]="showModal">
+    <app-modal
+        [title]="modalTitle"
+        [message]="modalMessage"
+        [okButtonText]="modalOkText"
+        [cancelButtonText]="modalCancelText"
+        (resultEvent)="getModalResult($event)">
+    </app-modal>
+</ng-template>
