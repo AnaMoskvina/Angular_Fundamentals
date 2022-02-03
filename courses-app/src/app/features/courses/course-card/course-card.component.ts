@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { Course } from '../courses.types';
 
 @Component({
@@ -28,9 +29,8 @@ export class CourseCardComponent implements OnInit {
   }
 
   getDate() {
-    const day = this.getStringFormat(this.course.creationDate.getDate());
-    const month = this.getStringFormat(this.course.creationDate.getMonth() + 1);
-    return `${day}.${month}.${this.course.creationDate.getFullYear()}`;
+    const date = new Date(this.course.creationDate);
+    return formatDate(date,'dd.MM.yyyy', 'en');
   }
 
   ngOnInit(): void {
