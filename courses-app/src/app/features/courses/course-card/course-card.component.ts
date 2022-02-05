@@ -29,8 +29,7 @@ export class CourseCardComponent implements OnInit {
   }
 
   getDate() {
-    const date = new Date(this.course.creationDate);
-    return formatDate(date,'dd.MM.yyyy', 'en');
+    return new Date(this.course.creationDate);
   }
 
   ngOnInit(): void {
