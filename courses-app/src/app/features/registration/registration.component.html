@@ -1,1 +1,51 @@
-<p>registration works!</p>
+<div class="form-container">
+    <h2>Registration</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <label for="name">Name</label>
+        <input
+            class="form-control" 
+            type="text"
+            name="name"
+            formControlName="name"
+            [class.has-error]="!registrationForm.get('name')?.valid && registrationForm.get('name')?.touched"/>
+        <span 
+            *ngIf="!registrationForm.get('name')?.valid && registrationForm.get('name')?.touched" >
+            Name is required
+        </span>
+        <label for="email">Email</label>
+        <input
+            class="form-control" 
+            type="text"
+            name="email"
+            formControlName="email"
+            [class.has-error]="!registrationForm.get('email')?.valid && registrationForm.get('email')?.touched"/>
+        <span 
+            *ngIf="registrationForm.get('email')?.errors?.['required'] && registrationForm.get('email')?.touched" >
+            Email is required
+        </span>
+        <span 
+            *ngIf="!registrationForm.get('email')?.errors?.['required'] && registrationForm.get('email')?.errors?.['validateEmail'] && registrationForm.get('email')?.touched" >
+            Email should be valid
+        </span>
+        <label for="password">Password</label>
+        <input
+            class="form-control"
+            type="text" 
+            name="password"
+            formControlName="password"
+            [class.has-error]="!registrationForm.get('password')?.valid && registrationForm.get('password')?.touched"/>
+        <span 
+            *ngIf="registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.touched" >
+            Password is required
+        </span>
+        <span 
+            *ngIf="!registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.errors?.['minlength'] && registrationForm.get('password')?.touched" >
+            Password should be at least 6 characters long
+        </span>
+        <app-button [buttonText]="'Registration'" class="button" [disabled]="!registrationForm.valid">
+        </app-button>
+    </form>
+    <p>If you have an account, you can</p>
+    <a>Login</a>
+</div>
+

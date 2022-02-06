@@ -1,0 +1,38 @@
+form {
+    display: inherit;
+    flex-direction: inherit;
+    width: inherit;
+    gap: inherit;
+    margin: 0 auto;
+
+    label {
+        font-weight: bold;
+    }
+
+    span {
+        color: #f00;
+    }
+
+    .has-error {
+        border-color: #f00;
+    }
+
+    .button {
+        align-self: center;
+        margin-top: 20px;
+    }
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 50px auto;
+    width: 500px;
+
+    h2, p, a {
+        text-align: center;
+        margin: 0;
+    }
+
+}

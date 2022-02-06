@@ -1,1 +1,38 @@
-<p>login works!</p>
+<div class="form-container">
+    <h2>Login</h2>
+    <form #f="ngForm" (ngSubmit)="onFormSubmit(f)">
+        <label for="email">Email</label>
+        <input
+            class="form-control" 
+            type="text"
+            name="email"
+            #email="ngModel"
+            [(ngModel)]="user.email" 
+            required appValidEmail
+            [class.has-error]="email.invalid && email.touched"/>
+        <span
+            *ngIf="email.errors?.['required'] && (email.touched || f.submitted)">
+            Email is required
+        </span>
+        <span
+            *ngIf="!email.errors?.['required'] && email.errors?.['validateEmail'] && (email.touched || f.submitted)">
+            Email should be valid
+        </span>
+        <label for="password">Password</label>
+        <input
+            class="form-control"
+            type="text" 
+            name="password"
+            #password="ngModel"
+            [(ngModel)]="user.password" required
+            [class.has-error]="password.invalid && password.touched"/>
+        <span
+            *ngIf="password.errors?.['required'] && (password.touched || f.submitted)">
+            Password is required
+        </span>
+        <app-button [buttonText]="'Login'" class="button" [disabled]="!f.valid">
+        </app-button>
+    </form>
+    <p>If you don't have an account, please go to</p>
+    <a>Registration</a>
+</div>
