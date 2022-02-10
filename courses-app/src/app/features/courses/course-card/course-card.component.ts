@@ -13,25 +13,6 @@ export class CourseCardComponent implements OnInit {
 
   constructor() { }
 
-  getStringFormat(num: number) { 
-    return String(num).padStart(2, '0');
-  }
-
-  getDuration() {
-    const hours = Math.floor(this.course.duration / 60);
-    const mins = this.course.duration - hours * 60;
-    const label = hours > 1 ? 'hours' : 'hour'
-    return `${this.getStringFormat(hours)}:${this.getStringFormat(mins)} ${label}`
-  }
-
-  getAuthors() {
-    return this.course.authors.join(', ');
-  }
-
-  getDate() {
-    return new Date(this.course.creationDate);
-  }
-
   ngOnInit(): void {
   }
 

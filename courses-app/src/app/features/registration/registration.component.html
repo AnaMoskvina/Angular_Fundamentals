@@ -6,6 +6,7 @@
             class="form-control" 
             type="text"
             name="name"
+            id="name"
             formControlName="name"
             [class.has-error]="!registrationForm.get('name')?.valid && registrationForm.get('name')?.touched"/>
         <span 
@@ -17,6 +18,7 @@
             class="form-control" 
             type="text"
             name="email"
+            id="email"
             formControlName="email"
             [class.has-error]="!registrationForm.get('email')?.valid && registrationForm.get('email')?.touched"/>
         <span 
@@ -32,6 +34,7 @@
             class="form-control"
             type="text" 
             name="password"
+            id="password"
             formControlName="password"
             [class.has-error]="!registrationForm.get('password')?.valid && registrationForm.get('password')?.touched"/>
         <span 

@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent, ButtonComponent, InfoComponent, SearchComponent, ModalComponent } from './components';
 import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { FormsModule } from '@angular/forms';
+import { CreationDatePipe, StringJoinerPipe, DurationPipe } from './pipes';
+import { EmailValidatorDirective, NameValidatorDirective } from './directives';
+import { HeaderComponent, ButtonComponent, InfoComponent, SearchComponent, ModalComponent } from './components';
 
 const COMPONENTS = [HeaderComponent, ButtonComponent, InfoComponent, SearchComponent, ModalComponent];
+const DIRECTIVES = [EmailValidatorDirective, NameValidatorDirective];
+const PIPES = [DurationPipe, CreationDatePipe, StringJoinerPipe];
 
 @NgModule({
-  declarations: [...COMPONENTS, EmailValidatorDirective],
+  declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
-  exports: [...COMPONENTS, EmailValidatorDirective]
+  exports: [...COMPONENTS, ...DIRECTIVES, ...PIPES, CommonModule]
 })
 export class SharedModule {
   constructor(library: FaIconLibrary) {

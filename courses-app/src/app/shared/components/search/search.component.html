@@ -1,1 +1,15 @@
-<p>search works!</p>
+<form #f="ngForm" (ngSubmit)="onFormSubmit()" class="container">
+    <label for="search">Search</label>
+    <input 
+        class="form-control"
+        type="text" 
+        name="search"
+        id="search"
+        [placeholder]="placeholder"
+        [(ngModel)]="query" required />
+    <app-button 
+        type="submit" 
+        buttonText="Search" 
+        [disabled]="!f.valid">
+    </app-button>
+</form>

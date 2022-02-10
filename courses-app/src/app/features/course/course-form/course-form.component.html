@@ -1,0 +1,57 @@
+<form class="container" [formGroup]="courseForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-top">
+        <div class="form-title">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control" formControlName="title"
+                [class.has-error]="!courseForm.get('title')?.valid && courseForm.get('title')?.touched" />
+            <span 
+                *ngIf="!courseForm.get('title')?.valid && courseForm.get('title')?.touched" >
+                Title is required
+            </span>
+        </div>
+        <app-button buttonText="Create coure"></app-button>
+    </div>
+    <label for="description">Description</label>
+    <textarea name="description" id="description" rows="7" class="form-control" formControlName="description"
+        [class.has-error]="!courseForm.get('description')?.valid && courseForm.get('description')?.touched"></textarea>
+    <span 
+        *ngIf="!courseForm.get('description')?.valid && courseForm.get('description')?.touched" >
+        Description is required
+    </span>
+    <div class="form-bottom">
+        <div class="form-authors">
+            <h3>Add authors</h3>
+            <label for="authors">Author name</label>
+            <input type="text" name="authors" id="authors" class="form-control" formControlName="authorName"/>
+            <span 
+                *ngIf="courseForm.get('authorName')?.errors?.['validateName'] && courseForm.get('authorName')?.touched" >
+                Only latin letters and numbers are allowed
+            </span>
+            <app-button buttonText="Create author" class="button" (click)="onCreateAuthor()"></app-button>
+        </div>
+        <div class="form-authors-list">
+            <h3>Authors list</h3>
+            <!-- <div 
+                class="form-delete-authors"
+                formArrayName="authorsList'"
+                *ngFor="let author of authorsList.controls; let i = index">
+                <input type="text" name="author" [formControlName]="i"/>
+            </div> -->
+        </div>
+        <div class="form-duration">
+            <h3>Duration</h3>
+            <label for="duration">Duration</label>
+            <input type="number" name="duration" id="duration" class="form-control" formControlName="duration"
+                [class.has-error]="!courseForm.get('duration')?.valid && courseForm.get('duration')?.touched"/>
+                <span 
+                *ngIf="courseForm.get('duration')?.errors?.['required'] && courseForm.get('duration')?.touched" >
+                Duration is required
+            </span>
+            <span 
+                *ngIf="!courseForm.get('duration')?.errors?.['required'] && courseForm.get('duration')?.errors?.['min'] && courseForm.get('duration')?.touched" >
+                Should not be less than 0
+            </span>
+            <p>Duration: 00:00 hours</p>
+        </div>
+    </div>
+</form>

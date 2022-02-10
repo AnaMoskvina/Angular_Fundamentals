@@ -4,9 +4,9 @@
         <p>{{ course.description }}</p>
     </div>
     <div class="card-right">
-        <p><span class="subtitle">Authors: </span>{{ getAuthors() }}</p>
-        <p><span class="subtitle">Duration: </span>{{ getDuration()}}</p>
-        <p><span class="subtitle">Created: </span>{{ course.creationDate | date: 'dd.MM.yyyy'}}</p>
+        <p><span class="subtitle">Authors: </span>{{ course.authors | stringJoiner : ", "}}</p>
+        <p><span class="subtitle">Duration: </span>{{course.duration | duration }}</p>
+        <p><span class="subtitle">Created: </span>{{ course.creationDate | creationDate }}</p>
         <div class="buttons">
             <ng-content></ng-content>
         </div>
