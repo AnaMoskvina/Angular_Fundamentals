@@ -1,4 +1,4 @@
-form {
+.form {
 
     &-bottom {
         display: grid;
@@ -34,20 +34,35 @@ form {
         
     }
 
-    span {
-        color: #f00;
+    &-authors-container {
+        display: flex;
+        gap: 20px;
+        margin: 15px 0;
+
+        .button {
+            flex-shrink: 0;
+        }
     }
 
-    .has-error {
-        border-color: #f00;
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    li {
-        list-style-type: none;
-    }
 }
 
+label {
+    font-weight: bold;
+}
+
+li {
+    list-style-type: none;
+}
+
+span {
+    color: #f00;
+}
+
+.has-error {
+    border-color: #f00;
+}
+
+input:disabled {
+    background: inherit;
+    border: none;
+}
