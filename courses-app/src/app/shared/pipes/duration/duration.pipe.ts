@@ -12,7 +12,7 @@ export class DurationPipe implements PipeTransform {
   transform(value: number): string {
     const hours = Math.floor(value / 60);
     const mins = value - hours * 60;
-    const label = hours > 1 ? 'hours' : 'hour'
+    const label = hours > 1 || hours === 0 ? 'hours' : 'hour'
     return `${this.getStringFormat(hours)}:${this.getStringFormat(mins)} ${label}`
   }
 

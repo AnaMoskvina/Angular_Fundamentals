@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
 
   onSubmit() {
     console.log(this.registrationForm);
+    this.registrationForm.reset();
   }
 
 }

@@ -45,7 +45,7 @@
             *ngIf="!registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.errors?.['minlength'] && registrationForm.get('password')?.touched" >
             Password should be at least 6 characters long
         </span>
-        <app-button [buttonText]="'Registration'" class="button" [disabled]="!registrationForm.valid">
+        <app-button [buttonText]="'Registration'" class="button" [disabled]="!registrationForm.valid" type="submit">
         </app-button>
     </form>
     <p>If you have an account, you can</p>
