@@ -16,23 +16,39 @@
             Email is required
         </span>
         <span
-            *ngIf="!email.errors?.['required'] && email.errors?.['validateEmail'] && (email.touched || f.submitted)">
+            *ngIf="!email.errors?.['required'] 
+                && email.errors?.['validateEmail'] 
+                && (email.touched || f.submitted)">
             Email should be valid
         </span>
         <label for="password">Password</label>
-        <input
-            class="form-control"
-            type="text" 
-            name="password"
-            id="password"
-            #password="ngModel"
-            [(ngModel)]="user.password" required
-            [class.has-error]="password.invalid && password.touched"/>
+        <div class="password-container">
+            <input
+                class="form-control"
+                type="text" 
+                name="password"
+                id="password"
+                #password="ngModel"
+                [(ngModel)]="user.password" required
+                [class.has-error]="password.invalid && password.touched"
+                togglePassword
+                #togglePassword="togglePassword"/>
+                <app-button 
+                    [buttonIcon]="togglePassword.getIcon()"
+                    (click)="togglePassword.toggle()" 
+                    [transparent]="true"
+                    class="password-icon">
+                </app-button>
+        </div>
         <span
             *ngIf="password.errors?.['required'] && (password.touched || f.submitted)">
             Password is required
         </span>
-        <app-button [buttonText]="'Login'" class="button" [disabled]="!f.valid" type="submit">
+        <app-button 
+            [buttonText]="'Login'" 
+            class="button" 
+            [disabled]="!f.valid" 
+            type="submit">
         </app-button>
     </form>
     <p>If you don't have an account, please go to</p>

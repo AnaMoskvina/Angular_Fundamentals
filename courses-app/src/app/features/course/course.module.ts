@@ -3,13 +3,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CourseComponent } from '../course/course.component';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CourseEditPageComponent } from './course-edit-page/course-edit-page.component';
 
 
 
 @NgModule({
   declarations: [
     CourseComponent,
-    CourseFormComponent
+    CourseFormComponent,
+    CourseEditPageComponent
   ],
   imports: [
     SharedModule,
@@ -17,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     CourseComponent,
-    CourseFormComponent
+    CourseFormComponent,
+    CourseEditPageComponent
   ]
 })
 export class CourseModule { }

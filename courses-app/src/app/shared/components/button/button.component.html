@@ -1,4 +1,9 @@
-<button class="btn btn-primary" [disabled]="disabled" [type]="type">{{ buttonText }}
+<button 
+    class="btn btn-primary" 
+    [disabled]="disabled"
+    [type]="type"
+    [class.transparent]="transparent">
+    {{ buttonText }}
     <ng-template [ngIf]="buttonIcon">
         <fa-icon [icon]="buttonIcon"></fa-icon>
     </ng-template>

@@ -8,9 +8,11 @@
             name="name"
             id="name"
             formControlName="name"
-            [class.has-error]="!registrationForm.get('name')?.valid && registrationForm.get('name')?.touched"/>
+            [class.has-error]="!registrationForm.get('name')?.valid 
+                && registrationForm.get('name')?.touched"/>
         <span 
-            *ngIf="!registrationForm.get('name')?.valid && registrationForm.get('name')?.touched" >
+            *ngIf="!registrationForm.get('name')?.valid 
+                && registrationForm.get('name')?.touched" >
             Name is required
         </span>
         <label for="email">Email</label>
@@ -20,32 +22,54 @@
             name="email"
             id="email"
             formControlName="email"
-            [class.has-error]="!registrationForm.get('email')?.valid && registrationForm.get('email')?.touched"/>
+            [class.has-error]="!registrationForm.get('email')?.valid 
+                && registrationForm.get('email')?.touched"/>
         <span 
-            *ngIf="registrationForm.get('email')?.errors?.['required'] && registrationForm.get('email')?.touched" >
+            *ngIf="registrationForm.get('email')?.errors?.['required'] 
+                && registrationForm.get('email')?.touched" >
             Email is required
         </span>
         <span 
-            *ngIf="!registrationForm.get('email')?.errors?.['required'] && registrationForm.get('email')?.errors?.['validateEmail'] && registrationForm.get('email')?.touched" >
+            *ngIf="!registrationForm.get('email')?.errors?.['required'] 
+                && registrationForm.get('email')?.errors?.['validateEmail'] 
+                && registrationForm.get('email')?.touched" >
             Email should be valid
         </span>
         <label for="password">Password</label>
-        <input
-            class="form-control"
-            type="text" 
-            name="password"
-            id="password"
-            formControlName="password"
-            [class.has-error]="!registrationForm.get('password')?.valid && registrationForm.get('password')?.touched"/>
+        <div class="password-container">
+            <input
+                class="form-control"
+                type="text" 
+                name="password"
+                id="password"
+                formControlName="password"
+                togglePassword
+                #togglePassword="togglePassword"
+                [class.has-error]="!registrationForm.get('password')?.valid 
+                    && registrationForm.get('password')?.touched"/>
+            <app-button 
+                [buttonIcon]="togglePassword.getIcon()"
+                (click)="togglePassword.toggle()" 
+                [transparent]="true"
+                class="password-icon">
+            </app-button>
+        </div>
         <span 
-            *ngIf="registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.touched" >
+            *ngIf="registrationForm.get('password')?.errors?.['required'] 
+            && registrationForm.get('password')?.touched" >
             Password is required
         </span>
         <span 
-            *ngIf="!registrationForm.get('password')?.errors?.['required'] && registrationForm.get('password')?.errors?.['minlength'] && registrationForm.get('password')?.touched" >
+            *ngIf="!registrationForm.get('password')?.errors?.['required'] 
+            && registrationForm.get('password')?.errors?.['minlength'] 
+            && registrationForm.get('password')?.touched" >
             Password should be at least 6 characters long
         </span>
-        <app-button [buttonText]="'Registration'" class="button" [disabled]="!registrationForm.valid" type="submit">
+        <app-button 
+            [buttonText]="'Registration'" 
+            class="button" 
+            [disabled]="!registrationForm.valid" 
+            type="submit">
         </app-button>
     </form>
     <p>If you have an account, you can</p>

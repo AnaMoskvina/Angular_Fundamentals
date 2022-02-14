@@ -23,14 +23,16 @@ export class CourseFormComponent implements OnInit {
   }
 
   onFormSubmit() {
-    console.log(this.courseForm.value); // TODO: see result
+    console.log(this.courseForm); // TODO: see result
     console.log(this.courseForm.get('authorsList')?.value);
+    (<FormArray>this.courseForm.get('authorsList')).clear();
     this.courseForm.reset();
   }
 
   onCreateAuthor(value: string) {
-    const control = new FormControl({value, disabled: true}, nameValidator());
+    const control = new FormControl({value, disabled: true});
     (<FormArray>this.courseForm.get('authorsList')).push(control);
+    (<FormControl>this.courseForm.get('authorName')).reset()
   }
 
   onRemoveAuthor(id: number) {
