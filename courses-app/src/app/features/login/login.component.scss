@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 form {
     display: inherit;
     flex-direction: inherit;
@@ -10,11 +12,11 @@ form {
     }
 
     span {
-        color: #f00;
+        color: $danger;
     }
 
     .has-error {
-        border-color: #f00;
+        border-color: $danger;
     }
 
     .button {
@@ -46,4 +48,8 @@ form {
         top: 0;
         right: 5px;
     }
+}
+
+input.form-control {
+    border: 1px solid $orange;
 }

@@ -1,3 +1,5 @@
+@import '../../../../styles.scss';
+
 .form {
 
     &-bottom {
@@ -5,6 +7,9 @@
         grid-template-columns: 3fr 2fr;
         grid-gap: 30px;
         margin: 30px 0;
+        border: 1px solid $gray;
+        border-radius: 3px;
+        padding: 10px;
     }
 
     &-top {
@@ -55,14 +60,24 @@ li {
 }
 
 span {
-    color: #f00;
+    color: $danger;
 }
 
 .has-error {
-    border-color: #f00;
+    border-color: $danger;
 }
 
-input:disabled {
-    background: inherit;
-    border: none;
+
+input.form-control {
+    border: 1px solid $orange;
+
+    &:disabled {
+        background: inherit;
+        border: none;
+    }
 }
+
+textarea.form-control {
+    border: 1px solid $sand_color;
+}
+

@@ -1,5 +1,23 @@
+@import '../../../../styles.scss';
+
+.btn {
+    border: 2px solid $purple;
+    background-color: transparent;
+    color: #000;
+    box-sizing: border-box;
+
+    &:hover, &:active {
+        background-color: rgba($purple, .4);
+        transition: background-color, 1s;
+    }
+}
+
 .transparent {
     background-color: transparent;
     border: none;
     color: #333;
+
+    &:hover, &:active {
+        background-color: transparent;
+    }
 }
