@@ -4,11 +4,11 @@ import { FontAwesomeModule, FaIconLibrary  } from '@fortawesome/angular-fontawes
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
 import { CreationDatePipe, StringJoinerPipe, DurationPipe } from './pipes';
-import { EmailValidatorDirective, NameValidatorDirective, TogglePasswordDirective } from './directives';
+import { EmailValidatorDirective, NameValidatorDirective, TogglePasswordDirective, ControlErrorDirective } from './directives';
 import { HeaderComponent, ButtonComponent, InfoComponent, SearchComponent, ModalComponent } from './components';
 
 const COMPONENTS = [HeaderComponent, ButtonComponent, InfoComponent, SearchComponent, ModalComponent];
-const DIRECTIVES = [EmailValidatorDirective, NameValidatorDirective, TogglePasswordDirective];
+const DIRECTIVES = [EmailValidatorDirective, NameValidatorDirective, TogglePasswordDirective, ControlErrorDirective];
 const PIPES = [DurationPipe, CreationDatePipe, StringJoinerPipe];
 
 @NgModule({

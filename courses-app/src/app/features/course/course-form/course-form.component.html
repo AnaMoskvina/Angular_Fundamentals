@@ -37,8 +37,8 @@
             && courseForm.get('description')?.touched" >
         Description is required
     </span>
-    <div class="form-bottom">
-        <div class="form-authors">
+    <div class="form-bottom" >
+        <div formGroupName="newAuthor" class="form-authors">
             <h3>Add authors</h3>
             <label for="authorName">Author name</label>
             <input 
@@ -47,27 +47,23 @@
                 id="authorName" 
                 class="form-control" 
                 formControlName="authorName"
-                [class.has-error]="!courseForm.get('authorName')?.valid 
-                    && courseForm.get('authorName')?.touched"
+                [class.has-error]="!courseForm.get('newAuthor.authorName')?.valid 
+                    && courseForm.get('newAuthor.authorName')?.touched"
                 #newAuthor>
-            <!-- <span 
-                *ngIf="courseForm.get('authorName')?.errors?.['validateName'] 
-                    && courseForm.get('authorName')?.touched" >
-                Only latin letters and numbers are allowed
-            </span> -->
             <app-button buttonText="Create author" 
                 class="button" 
                 (click)="onCreateAuthor(newAuthor.value)"
-                [disabled]="!courseForm.get('authorName')?.value">
+                [disabled]="!courseForm.get('newAuthor.authorName')?.value">
             </app-button>
         </div>
         <div class="form-authors-list">
             <h3>Authors list</h3>
-            <div formArrayName="authorsList">
-                <div *ngFor="let author of getAuthorsList(courseForm); let i=index" 
+            <div formArrayName="authors">
+                <div *ngFor="let author of getAuthors(courseForm); let i=index" 
                     class="form-authors-container">
                     <input [formControlName]="i"   
-                        [(value)]="author.value" 
+                        [(value)]="author.value"
+                        [disabled]="true" 
                         class="form-control">
                     <app-button 
                         buttonText="Delete author" 

@@ -9,7 +9,7 @@ import { nameValidator } from 'src/app/shared/directives/name-validator/name-val
 })
 export class CourseFormComponent implements OnInit {
   courseForm!: FormGroup;
-
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -17,30 +17,32 @@ export class CourseFormComponent implements OnInit {
       'title': new FormControl(null, Validators.required),
       'description': new FormControl(null, Validators.required),
       'duration':  new FormControl(null, [Validators.required, Validators.min(0)]),
-      'authorName': new FormControl(null, nameValidator()),
-      'authorsList': new FormArray([])
+      'newAuthor': new FormGroup({
+        'authorName': new FormControl(null, nameValidator()),
+      }),
+      'authors': new FormArray([])
     });
   }
 
   onFormSubmit() {
-    console.log(this.courseForm); // TODO: see result
-    console.log(this.courseForm.get('authorsList')?.value);
-    (<FormArray>this.courseForm.get('authorsList')).clear();
+    console.log(this.courseForm.value);
+    (<FormArray>this.courseForm.get('authors')).clear();
     this.courseForm.reset();
   }
 
   onCreateAuthor(value: string) {
-    const control = new FormControl({value, disabled: true});
-    (<FormArray>this.courseForm.get('authorsList')).push(control);
-    (<FormControl>this.courseForm.get('authorName')).reset()
+    const control = new FormControl(value);
+    (<FormArray>this.courseForm.get('authors')).push(control);
+    (<FormControl>this.courseForm.get('newAuthor.authorName')).reset()
   }
 
   onRemoveAuthor(id: number) {
-    (<FormArray>this.courseForm.get('authorsList')).removeAt(id);
+    (<FormArray>this.courseForm.get('authors')).removeAt(id);
   }
 
-  getAuthorsList(courseForm: any) {
-    return courseForm.get('authorsList').controls;
+  getAuthors(courseForm: any) {
+    return courseForm.get('authors').controls;
   }
+
 
 }

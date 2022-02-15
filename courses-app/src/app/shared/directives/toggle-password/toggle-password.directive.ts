@@ -11,7 +11,6 @@ export class TogglePasswordDirective {
   constructor(private el: ElementRef) { }
 
   toggle() {
-    console.log(this.shown)
     if (this.shown) {
       this.el.nativeElement.setAttribute('type', 'text');
     } else {

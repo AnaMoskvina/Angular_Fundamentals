@@ -10,7 +10,7 @@
             #email="ngModel"
             [(ngModel)]="user.email" 
             required appValidEmail
-            [class.has-error]="email.invalid && email.touched"/>
+            [class.has-error]="email.invalid && email.touched"/>         
         <span
             *ngIf="email.errors?.['required'] && (email.touched || f.submitted)">
             Email is required
