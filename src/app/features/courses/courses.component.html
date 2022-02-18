@@ -11,7 +11,7 @@
     (click)="addCourse()">
     </app-button>
 </app-info>
-<app-search></app-search>
+<app-search (searchEvent)="handleSearch($event)"></app-search>
 <app-course-list 
     [courses]="courses"
     [editable]="editable"

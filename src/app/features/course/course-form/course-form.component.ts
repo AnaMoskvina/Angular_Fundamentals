@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
-import { nameValidator } from 'src/app/shared/directives/name-validator/name-validator.directive';
+import { nameValidator } from 'src/app/shared/directives';
 
 @Component({
   selector: 'app-course-form',
@@ -31,9 +31,12 @@ export class CourseFormComponent implements OnInit {
   }
 
   onCreateAuthor(value: string) {
-    const control = new FormControl(value);
-    (<FormArray>this.courseForm.get('authors')).push(control);
-    (<FormControl>this.courseForm.get('newAuthor.authorName')).reset()
+    if (this.courseForm.get('newAuthor.authorName')?.valid &&
+        this.courseForm.get('newAuthor.authorName')?.value) {
+      const control = new FormControl(value);
+      (<FormArray>this.courseForm.get('authors')).push(control);
+      (<FormControl>this.courseForm.get('newAuthor.authorName')).reset()
+    }
   }
 
   onRemoveAuthor(id: number) {

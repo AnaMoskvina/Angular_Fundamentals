@@ -8,17 +8,18 @@ import { emailValidator } from 'src/app/shared/directives/email-validator/email-
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  registrationForm!: FormGroup;
+  
+  registrationForm: FormGroup;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor() {
     this.registrationForm = new FormGroup({
       'name': new FormControl(null, Validators.required),
       'email': new FormControl(null, [Validators.required, emailValidator()]),
       'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
-    });
+    })
   }
+
+  ngOnInit(): void { }
 
   onSubmit() {
     console.log(this.registrationForm);
