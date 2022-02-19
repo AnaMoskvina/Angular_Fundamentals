@@ -53,6 +53,10 @@ export class CoursesComponent implements OnInit {
     console.log(result); // TODO: add implementation when needed
   }
 
+  handleSearch(query: string) {
+    console.log(query); // TODO: add implementation when needed
+  }
+
   constructor() { }
 
   ngOnInit(): void {

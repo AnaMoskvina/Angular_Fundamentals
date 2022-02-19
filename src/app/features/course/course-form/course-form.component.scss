@@ -2,6 +2,10 @@
 
 .form {
 
+    .has-error {
+        border-color: $danger;
+    }
+
     &-bottom {
         display: grid;
         grid-template-columns: 3fr 2fr;
@@ -63,10 +67,6 @@ span {
     color: $danger;
 }
 
-.has-error {
-    border-color: $danger;
-}
-
 
 input.form-control {
     border: 1px solid $orange;
@@ -75,9 +75,16 @@ input.form-control {
         background: inherit;
         border: none;
     }
+
+    &.has-error {
+        border-color: $danger;
+    }
 }
 
 textarea.form-control {
     border: 1px solid $sand_color;
-}
 
+    &.has-error {
+        border-color: $danger;
+    }
+}
