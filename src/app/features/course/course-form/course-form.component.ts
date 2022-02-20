@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { nameValidator } from 'src/app/shared/directives';
+import { AuthorsStoreService } from 'src/app/services/authors-store.service';
 
 @Component({
   selector: 'app-course-form',
   templateUrl: './course-form.component.html',
-  styleUrls: ['./course-form.component.scss']
+  styleUrls: ['./course-form.component.scss'],
+  providers: [ AuthorsStoreService]
 })
 export class CourseFormComponent implements OnInit {
   courseForm!: FormGroup;
   
-  constructor() { }
+  constructor(private authorStoreService: AuthorsStoreService) { }
 
   ngOnInit(): void {
     this.courseForm = new FormGroup({
@@ -31,6 +33,7 @@ export class CourseFormComponent implements OnInit {
   }
 
   onCreateAuthor(value: string) {
+    console.log(this.authorStoreService.addAuthor('hhh'));
     if (this.courseForm.get('newAuthor.authorName')?.valid &&
         this.courseForm.get('newAuthor.authorName')?.value) {
       const control = new FormControl(value);
