@@ -8,7 +8,8 @@ import { RegistrationModule } from './features/registration/registration.module'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CourseModule } from './features/course/course.module';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,10 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forRoot(routes),
     HttpClientModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: Window, useValue: window }
+  ]
 })
 export class AppModule { }

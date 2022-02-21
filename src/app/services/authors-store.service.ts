@@ -2,21 +2,26 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthorsService } from './authors.service';
 
+interface Author {
+  name: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorsStoreService {
 
   private isLoading$$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private authors$$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  private authors$$: BehaviorSubject<Author[]> = new BehaviorSubject<Author[]>([]);
   public isLoading$: Observable<boolean> = this.isLoading$$?.asObservable();
-  public authors$: Observable<string[]> = this.authors$$?.asObservable();
+  public authors$: Observable<Author[]> = this.authors$$?.asObservable();
 
   constructor(private authorService: AuthorsService) { }
 
   getAll() {
-    this.authorService.getAll().subscribe(authors => {
+    this.authorService.getAll().subscribe((authors: any) => { // TODO add types
       console.log(authors);
+      this.authors$$ = authors; // TODO: check!
     })
   }
 

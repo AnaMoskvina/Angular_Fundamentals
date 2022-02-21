@@ -15,6 +15,6 @@ export class AuthorsService {
   }
 
   addAuthor(name: string) {
-    return this.http.post(`${this.authorsEndpont}/add`, name);
+    return this.http.post(`${this.authorsEndpont}/add`, { name: name });
   }
 }

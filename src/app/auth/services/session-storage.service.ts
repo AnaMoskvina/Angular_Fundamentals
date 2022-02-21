@@ -5,10 +5,10 @@ import { Inject, Injectable } from '@angular/core';
 })
 export class SessionStorageService {
 
-  constructor(@Inject(Window) private window: Window) { }
+  constructor(@Inject(Window) private window: Window) {}
 
   setToken(token: string) {
-    this.window.sessionStorage.setItem('token', token); // TODO: name of the token ?
+    return this.window.sessionStorage.setItem('token', token); // TODO: name of the token ?
   }
 
   getToken(){
@@ -16,6 +16,6 @@ export class SessionStorageService {
   }
 
   deleteToken() {
-    this.window.sessionStorage.removeItem('token');
+    return this.window.sessionStorage.removeItem('token');
   }
 }
