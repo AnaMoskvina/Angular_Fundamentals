@@ -3,7 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthorsService } from './authors.service';
 
 interface Author {
-  name: string
+  name: string,
+  id: string
 }
 
 @Injectable({
@@ -19,10 +20,9 @@ export class AuthorsStoreService {
   constructor(private authorService: AuthorsService) { }
 
   getAll() {
-    this.authorService.getAll().subscribe((authors: any) => { // TODO add types
-      console.log(authors);
-      this.authors$$ = authors; // TODO: check!
-    })
+      this.authorService.getAll().subscribe((response:any) => {
+        this.authors$$.next(response.result);
+      })
   }
 
   addAuthor(name: string) {

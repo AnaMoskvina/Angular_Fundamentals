@@ -12,6 +12,11 @@
     </app-button>
 </app-info>
 <app-search (searchEvent)="handleSearch($event)"></app-search>
+<ul>
+    <li *ngFor="let course of coursesStoreService.courses$ | async">
+        {{course.title}}
+    </li>
+</ul>
 <app-course-list 
     [courses]="courses"
     [editable]="editable"

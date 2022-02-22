@@ -8,7 +8,7 @@ import { SessionStorageService } from './session-storage.service';
 })
 export class AuthService {
 
-  endpoint: string = 'http://localhost:3000/';
+  endpoint: string = 'http://localhost:3000';
 
   private isAuthorized$$: BehaviorSubject<boolean> =new BehaviorSubject<boolean>(false);
   public isAuthorized$: Observable<boolean> = this.isAuthorized$$?.asObservable();

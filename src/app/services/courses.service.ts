@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Course } from '../features/courses/courses.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
 
-  coursesEndpont: string = 'http://localhost:3000/authors';
+  coursesEndpont: string = 'http://localhost:3000/courses';
 
   constructor(private http: HttpClient) { }
 
@@ -14,11 +15,11 @@ export class CoursesService {
     return this.http.get(`${this.coursesEndpont}/all`);
   }
 
-  createCourse(course: {}) { // TODO: add type
+  createCourse(course: Course) {
     return this.http.post(`${this.coursesEndpont}/add`, course);
   }
 
-  editCourse(course: { id: string}) { // TODO: add type
+  editCourse(course: Course) {
     return this.http.put(`${this.coursesEndpont}/${course.id}`, course);
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from './courses.types';
 import { coursesMock } from './courses.mock';
+import { CoursesStoreService } from 'src/app/services/courses-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -25,6 +26,14 @@ export class CoursesComponent implements OnInit {
 
   editable = true;
   courses = coursesMock;
+
+  constructor(public coursesStoreService:CoursesStoreService) { }
+
+  ngOnInit(): void {
+    this.coursesStoreService.getAll()
+    console.log(this.coursesStoreService.courses$)
+    console.log(this.coursesStoreService.isLoading$)
+  }
 
   removeItem(currentCourse: Course) {
     this.courses = this.courses.filter(course => course.title !== currentCourse.title);
@@ -55,11 +64,6 @@ export class CoursesComponent implements OnInit {
 
   handleSearch(query: string) {
     console.log(query); // TODO: add implementation when needed
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
 }

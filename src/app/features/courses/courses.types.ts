@@ -1,4 +1,5 @@
 export type Course = {
+    id?: string; // TODO: make obligatory
     title: string;
     description: string;
     creationDate: string;
