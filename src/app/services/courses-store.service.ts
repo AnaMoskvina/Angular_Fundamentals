@@ -16,8 +16,8 @@ export class CoursesStoreService {
 
   getAll() {
     this.isLoading$$.next(true);
-    this.coursesService.getAll().subscribe((response: any) => {
-      this.courses$$.next(response.result);
+    this.coursesService.getAll().subscribe((res: any) => {
+      this.courses$$.next(res.result);
     })
     this.isLoading$$.next(false);
   }
@@ -25,7 +25,7 @@ export class CoursesStoreService {
   createCourse(course: Course) {
     this.isLoading$$.next(true);
     this.coursesService.createCourse(course).subscribe(course => {
-      console.log(course);
+      console.log(course); // TODO
     })
     this.isLoading$$.next(false);
   }
@@ -33,7 +33,7 @@ export class CoursesStoreService {
   editCourse(id: Course) {
     this.isLoading$$.next(true);
     this.coursesService.editCourse(id).subscribe(course => {
-      console.log(course);
+      console.log(course); // TODO
     })
     this.isLoading$$.next(false);
   }
@@ -41,7 +41,7 @@ export class CoursesStoreService {
   getCourse(id: string) {
     this.isLoading$$.next(true);
     this.coursesService.getCourse(id).subscribe(course => {
-      console.log(course);
+      console.log(course); // TODO
     })
     this.isLoading$$.next(false);
   }
@@ -54,6 +54,15 @@ export class CoursesStoreService {
       this.courses$$.next(courses.splice(index, 1));
     })
     this.isLoading$$.next(false);
+  }
+
+  searchCourse(title: string) {
+    // dont like sending a request here, but seems it's a task requirement
+    this.coursesService.getAll().subscribe((res: any) => {
+      const regex = new RegExp(`^${title}`, 'gmi');
+      const filteredCourses = res.result.filter((course:any) => regex.test(course.title));
+      this.courses$$.next(filteredCourses);
+    })
   }
 
 }

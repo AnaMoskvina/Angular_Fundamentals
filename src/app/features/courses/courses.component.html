@@ -1,24 +1,19 @@
 <app-header>
-    <ng-template [ngIf]="isLoggedIn">
-        <p>{{ name }}</p>
-        <app-button [buttonText]="buttonText"
+    <ng-template [ngIf]="authService.isAuthorized$ | async">
+        <p>{{ userStoreService.name$ | async }}</p>
+        <app-button buttonText="logout"
         (click)="logout()">
         </app-button>
     </ng-template>
 </app-header>
-<app-info [title]="infoTitle" [text]="infoText">
+<!-- <app-info [title]="infoTitle" [text]="infoText">
     <app-button [buttonText]="infoButtonText"
     (click)="addCourse()">
     </app-button>
-</app-info>
+</app-info> -->
 <app-search (searchEvent)="handleSearch($event)"></app-search>
-<ul>
-    <li *ngFor="let course of coursesStoreService.courses$ | async">
-        {{course.title}}
-    </li>
-</ul>
 <app-course-list 
-    [courses]="courses"
+    [courses]="coursesStoreService.courses$"
     [editable]="editable"
     (removeEvent)="removeItem($event)"
     (editEvent)="editItem($event)"

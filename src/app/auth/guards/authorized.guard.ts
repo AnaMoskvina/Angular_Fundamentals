@@ -8,15 +8,13 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthorizedGuard implements CanLoad {
-
-  auth = false; // TODO: remove later
+  isAuthorized: any
 
   constructor(private authService: AuthService, private router: Router) { }
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      // return this.authService.isAuthorized$ ? true : false; // TODO ??
-      console.log('called');
-      return this.auth ? true : false; // TODO ??
+      this.authService.isAuthorized$.subscribe(event => this.isAuthorized = event);
+      return this.isAuthorized ? true : this.router.createUrlTree(['/login']);
   }
 }

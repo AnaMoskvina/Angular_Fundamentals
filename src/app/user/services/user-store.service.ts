@@ -15,8 +15,8 @@ export class UserStoreService {
   constructor(private userService: UserService) { }
 
   getUser() {
-    this.userService.getUser().subscribe(user => {
-      console.log(user); // TODO implement
+    this.userService.getUser().subscribe((res: any) => {
+      this.name$$.next(res.result)
     })
   }
 }

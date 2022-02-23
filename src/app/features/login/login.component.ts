@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserStoreService } from 'src/app/user/services/user-store.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +14,15 @@ export class LoginComponent implements OnInit {
     password: ""
   };
 
-  constructor() { }
+  constructor(private authService: AuthService,
+    private userStoreService: UserStoreService) { }
 
   ngOnInit(): void {
   }
 
   onFormSubmit(form: NgForm) {
-    console.log(form.value);
+    this.authService.login(form.value);
+    // () => this.userStoreService.getUser(); // TODO: doesn't work
     form.resetForm();
   }
 

@@ -14,7 +14,11 @@ export class AuthorsService {
     return this.http.get(`${this.authorsEndpont}/all`);
   }
 
-  addAuthor(name: string) {
+  addAuthor(name: string ) {
     return this.http.post(`${this.authorsEndpont}/add`, { name: name });
+  }
+
+  getAuthor(id: string) {
+    return this.http.get(`${this.authorsEndpont}/${id}`);
   }
 }

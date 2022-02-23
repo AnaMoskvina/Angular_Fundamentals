@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from './courses.types';
 import { coursesMock } from './courses.mock';
 import { CoursesStoreService } from 'src/app/services/courses-store.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserStoreService } from 'src/app/user/services/user-store.service';
 
 @Component({
   selector: 'app-courses',
@@ -10,11 +12,10 @@ import { CoursesStoreService } from 'src/app/services/courses-store.service';
 })
 export class CoursesComponent implements OnInit {
 
-  name = 'Anastasiia'; // TODO: will be changed later
-  buttonText = 'Logout';
-  isLoggedIn = true; // TODO: later will be stored in store (?)
+  user = 'Anastasiia'; // TODO: will be changed later
   showModal = false;
   
+  // TODO: set static values in template, remove from here
   infoTitle = 'Your list is empty';
   infoText = 'Please, use the "Add new course" button to add your first course';
   infoButtonText = 'Add new couse';
@@ -27,12 +28,15 @@ export class CoursesComponent implements OnInit {
   editable = true;
   courses = coursesMock;
 
-  constructor(public coursesStoreService:CoursesStoreService) { }
+  constructor(public coursesStoreService:CoursesStoreService, 
+    public authService: AuthService,
+    public userStoreService: UserStoreService) {
+    }
 
   ngOnInit(): void {
-    this.coursesStoreService.getAll()
-    console.log(this.coursesStoreService.courses$)
-    console.log(this.coursesStoreService.isLoading$)
+    this.coursesStoreService.getAll();
+    this.userStoreService.getUser();
+    this.userStoreService.name$.subscribe((event: any) => this.user = event.name)
   }
 
   removeItem(currentCourse: Course) {
@@ -50,7 +54,7 @@ export class CoursesComponent implements OnInit {
   }
 
   logout() {
-    this.showModal = true; // TODO: add implementation when needed
+    this.authService.logout();
   }
 
   addCourse() {
@@ -63,7 +67,7 @@ export class CoursesComponent implements OnInit {
   }
 
   handleSearch(query: string) {
-    console.log(query); // TODO: add implementation when needed
+    this.coursesStoreService.searchCourse(query);
   }
 
 }

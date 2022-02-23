@@ -31,4 +31,8 @@ export class AuthorsStoreService {
       // this.authors$$.next(this.authors$$.getValue().push(response));
     })
   }
+
+  getAuthor(id: string) {
+    // return this.authorService.getAuthor(id).subscribe()
+  }
 }
