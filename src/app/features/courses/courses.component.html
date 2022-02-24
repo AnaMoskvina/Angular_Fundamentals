@@ -1,16 +1,11 @@
 <app-header>
     <ng-template [ngIf]="authService.isAuthorized$ | async">
-        <p>{{ userStoreService.name$ | async }}</p>
+        <p>{{ user }}</p>
         <app-button buttonText="logout"
         (click)="logout()">
         </app-button>
     </ng-template>
 </app-header>
-<!-- <app-info [title]="infoTitle" [text]="infoText">
-    <app-button [buttonText]="infoButtonText"
-    (click)="addCourse()">
-    </app-button>
-</app-info> -->
 <app-search (searchEvent)="handleSearch($event)"></app-search>
 <app-course-list 
     [courses]="coursesStoreService.courses$"
@@ -19,12 +14,12 @@
     (editEvent)="editItem($event)"
     (showEvent)="showItem($event)">
 </app-course-list>
-<ng-template [ngIf]="showModal">
+<ng-template [ngIf]="showDeleteModal">
     <app-modal
-        [title]="modalTitle"
-        [message]="modalMessage"
-        [okButtonText]="modalOkText"
-        [cancelButtonText]="modalCancelText"
-        (resultEvent)="getModalResult($event)">
+        title="Are you sure?"
+        message="Do you want to delete the course?"
+        okButtonText="OK"
+        cancelButtonText="Cancel"
+        (resultEvent)="handleDeleteModalResult($event)">
     </app-modal>
 </ng-template>

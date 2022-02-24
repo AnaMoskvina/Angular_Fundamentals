@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionStorageService } from './session-storage.service';
 import { User } from '../../user/services/user.types';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient, 
-    private sessionStorage: SessionStorageService) { }
+    private sessionStorage: SessionStorageService,
+    private router: Router) { }
 
   login(user: User) {
     this.http
@@ -31,9 +33,9 @@ export class AuthService {
     const token = this.sessionStorage.getToken() || '';
     this.http
     .delete(`${this.endpoint}/logout`, { headers: { Authorization: token}})
-    .subscribe(res => {
-      console.log(res); // TODO: implement, add header
+    .subscribe(() => {
       this.sessionStorage.deleteToken();
+      this.isAuthorized$$.next(false);
     })
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IconName } from '@fortawesome/free-solid-svg-icons';
 import { Course } from '../courses.types';
+import { UserStoreService } from 'src/app/user/services/user-store.service';
 
 @Component({
   selector: 'app-course-list',
@@ -31,7 +32,11 @@ export class CourseListComponent implements OnInit {
     this.showEvent.emit(value);
   }
 
-  constructor() { }
+  constructor(public userStoreService: UserStoreService) {
+    // this.userStoreService.isAdmin$.subscribe(isAdmin => {
+    //   this.editable = isAdmin
+    // })
+  }
 
   ngOnInit(): void {
   }
