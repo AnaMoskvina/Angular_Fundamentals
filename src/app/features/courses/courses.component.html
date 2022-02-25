@@ -1,15 +1,22 @@
 <app-header>
     <ng-template [ngIf]="authService.isAuthorized$ | async">
-        <p>{{ user }}</p>
+        <p>{{ userStoreService.name$ | async }}</p>
         <app-button buttonText="logout"
         (click)="logout()">
         </app-button>
     </ng-template>
 </app-header>
+<ng-template [ngIf]="isAdmin">
+    <app-info [title]="infoTitle" [text]="infoText">
+        <app-button [buttonText]="infoButtonText"
+        (click)="addCourse()">
+        </app-button>
+    </app-info>
+</ng-template>
 <app-search (searchEvent)="handleSearch($event)"></app-search>
 <app-course-list 
     [courses]="coursesStoreService.courses$"
-    [editable]="editable"
+    [editable]="isAdmin"
     (removeEvent)="removeItem($event)"
     (editEvent)="editItem($event)"
     (showEvent)="showItem($event)">

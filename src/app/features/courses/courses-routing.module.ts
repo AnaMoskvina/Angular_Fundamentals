@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CoursesComponent } from './courses.component';
 import { CourseEditPageComponent } from '../course/course-edit-page/course-edit-page.component';
 import { CourseComponent } from '../course/course.component';
+import { AdminGuard } from 'src/app/user/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
   },
   {
     path: 'add', 
-    component: CourseEditPageComponent
+    component: CourseEditPageComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: ':id',
@@ -19,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'edit/:id',
-    component: CourseEditPageComponent
+    component: CourseEditPageComponent,
+    canActivate: [AdminGuard]
   }
 ];
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IconName } from '@fortawesome/free-solid-svg-icons';
 import { Course } from '../courses.types';
-import { UserStoreService } from 'src/app/user/services/user-store.service';
 
 @Component({
   selector: 'app-course-list',
@@ -11,7 +10,7 @@ import { UserStoreService } from 'src/app/user/services/user-store.service';
 export class CourseListComponent implements OnInit {
 
   @Input() courses?: any;
-  @Input() editable: boolean = true;
+  @Input() editable: boolean = false;
   @Output() removeEvent = new EventEmitter<Course>();
   @Output() editEvent = new EventEmitter<Course>();
   @Output() showEvent = new EventEmitter<Course>();
@@ -32,11 +31,7 @@ export class CourseListComponent implements OnInit {
     this.showEvent.emit(value);
   }
 
-  constructor(public userStoreService: UserStoreService) {
-    // this.userStoreService.isAdmin$.subscribe(isAdmin => {
-    //   this.editable = isAdmin
-    // })
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }

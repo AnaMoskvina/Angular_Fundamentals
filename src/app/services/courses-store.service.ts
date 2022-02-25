@@ -26,34 +26,31 @@ export class CoursesStoreService {
     this.isLoading$$.next(true);
     this.coursesService.createCourse(course).subscribe(course => {
       console.log(course); // TODO
+      // this.courses$$.next(this.courses$$.getValue().push(course))
     })
     this.isLoading$$.next(false);
   }
 
-  editCourse(id: Course) {
+  editCourse(course: Course) {
     this.isLoading$$.next(true);
-    this.coursesService.editCourse(id).subscribe(course => {
+    this.coursesService.editCourse(course).subscribe(course => {
       console.log(course); // TODO
     })
     this.isLoading$$.next(false);
   }
   
   getCourse(id: string) {
-    this.isLoading$$.next(true);
-    this.coursesService.getCourse(id).subscribe(course => {
-      console.log(course); // TODO
-    })
-    this.isLoading$$.next(false);
+    return this.coursesService.getCourse(id)
   }
 
   deleteCourse(id: string) { // TODO: check
-    this.isLoading$$.next(true);
+    // this.isLoading$$.next(true);
     this.coursesService.deleteCourse(id).subscribe((result: any) => { // TODO: type
       let courses = this.courses$$.getValue();
       let index = courses.findIndex((course) => course.id === result.id);
       this.courses$$.next(courses.splice(index, 1));
     })
-    this.isLoading$$.next(false);
+    // this.isLoading$$.next(false);
   }
 
   searchCourse(title: string) {

@@ -11,19 +11,17 @@ import { map } from 'rxjs';
 export class AuthorizedGuard implements CanLoad {
 
   constructor(private authService: AuthService, private router: Router) { }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-      return this.authService.isAuthorized$.pipe(
-        map(isAuthorized => {
-          if (isAuthorized) {
-            return true;
-          } else {
-            this.router.createUrlTree(['login']);
-            return false;
-          }
-        })
-      )
+canLoad(
+  route: Route,
+  segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.authService.isAuthorized$.pipe(
+      map(isAuthorized => {
+        if (isAuthorized) {
+          return true;
+        } else {
+          return this.router.createUrlTree(['login']);
+        }
+      })
+    )
   }
 }
