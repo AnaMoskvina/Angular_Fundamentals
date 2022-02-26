@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LoginComponent } from '../login/login.component';
 import { FormsModule } from '@angular/forms';
+import { LoginRoutingModule } from './login-routing.module';
 
 
 
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     SharedModule,
-    FormsModule
+    FormsModule,
+    LoginRoutingModule
   ],
   exports: [
     LoginComponent

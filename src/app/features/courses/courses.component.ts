@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from './courses.types';
-import { coursesMock } from './courses.mock';
+import { CoursesStoreService } from 'src/app/services/courses-store.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserStoreService } from 'src/app/user/services/user-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -9,57 +12,61 @@ import { coursesMock } from './courses.mock';
 })
 export class CoursesComponent implements OnInit {
 
-  name = 'Anastasiia'; // TODO: will be changed later
-  buttonText = 'Logout';
-  isLoggedIn = true; // TODO: later will be stored in store (?)
-  showModal = false;
-  
-  infoTitle = 'Your list is empty';
-  infoText = 'Please, use the "Add new course" button to add your first course';
+  user = '';
+  isAdmin = false;
+  showDeleteModal = false;
+  infoTitle = 'You can also add new course';
+  infoText = 'Please, use the "Add new course" button';
   infoButtonText = 'Add new couse';
+  courses = [];
+  courseToDelete?: any;
 
-  modalTitle = 'Hi!';
-  modalMessage = 'This functionality is still in progress';
-  modalOkText = 'ok';
-  modalCancelText = 'cancel';
+  constructor(public coursesStoreService:CoursesStoreService, 
+    public authService: AuthService,
+    public userStoreService: UserStoreService,
+    private router: Router) {
+    }
 
-  editable = true;
-  courses = coursesMock;
+  ngOnInit(): void {
+    this.coursesStoreService.getAll();
+    this.userStoreService.getUser();
+    this.userStoreService.name$.subscribe((name: string) => this.user = name);
+    this.userStoreService.isAdmin$.subscribe((isAdmin: boolean) => this.isAdmin = isAdmin);
+  }
 
   removeItem(currentCourse: Course) {
-    this.courses = this.courses.filter(course => course.title !== currentCourse.title);
+    this.courseToDelete = currentCourse.id;
+    this.showDeleteModal = true;
+  }
+
+  handleDeleteModalResult(result: boolean) {
+    if (result) {
+      this.coursesStoreService.deleteCourse(this.courseToDelete);
+    }
+    this.showDeleteModal = false;
   }
 
   editItem(currentCourse: Course) {
-    this.showModal = true;
-    console.log(`${currentCourse.title} course should be edited`); // TODO: add implementation
+    this.router.navigate([`courses/edit/:${currentCourse.id}`]);
    }
 
   showItem(currentCourse: Course) {
-    this.showModal = true;
-    console.log(`${currentCourse.title} course should be shown`); // TODO: add implementation
+    this.router.navigate([`courses/:${currentCourse.id}`]);
   }
 
   logout() {
-    this.showModal = true; // TODO: add implementation when needed
+    this.authService.logout();
+    this.authService.isAuthorized$.subscribe(isAuthorized => {
+      !isAuthorized && this.router.navigate(['/login']);
+    })
   }
 
   addCourse() {
-    this.showModal = true; // info component is just for demo purposes
-  }
-
-  getModalResult(result: boolean) {
-    this.showModal = false;
-    console.log(result); // TODO: add implementation when needed
+    this.router.navigate(['courses/add']);
   }
 
   handleSearch(query: string) {
-    console.log(query); // TODO: add implementation when needed
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
+    this.coursesStoreService.searchCourse(query);
   }
 
 }
