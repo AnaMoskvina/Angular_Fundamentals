@@ -19,7 +19,7 @@ export class CoursesComponent implements OnInit {
   infoText = 'Please, use the "Add new course" button';
   infoButtonText = 'Add new couse';
   courses = [];
-  modalResult = false;
+  courseToDelete?: any;
 
   constructor(public coursesStoreService:CoursesStoreService, 
     public authService: AuthService,
@@ -35,24 +35,23 @@ export class CoursesComponent implements OnInit {
   }
 
   removeItem(currentCourse: Course) {
+    this.courseToDelete = currentCourse.id;
     this.showDeleteModal = true;
-    if (this.modalResult) {
-      this.coursesStoreService.deleteCourse(currentCourse.id!)
-    }
-    this.modalResult = false;
   }
 
   handleDeleteModalResult(result: boolean) {
+    if (result) {
+      this.coursesStoreService.deleteCourse(this.courseToDelete);
+    }
     this.showDeleteModal = false;
-    this.modalResult = result;
   }
 
   editItem(currentCourse: Course) {
-    this.router.navigate([`courses/edit/:${currentCourse.id}`])
+    this.router.navigate([`courses/edit/:${currentCourse.id}`]);
    }
 
   showItem(currentCourse: Course) {
-    this.router.navigate([`courses/:${currentCourse.id}`])
+    this.router.navigate([`courses/:${currentCourse.id}`]);
   }
 
   logout() {
@@ -63,7 +62,7 @@ export class CoursesComponent implements OnInit {
   }
 
   addCourse() {
-    this.router.navigate(['courses/add'])
+    this.router.navigate(['courses/add']);
   }
 
   handleSearch(query: string) {

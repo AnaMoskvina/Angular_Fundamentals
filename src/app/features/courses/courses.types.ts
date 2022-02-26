@@ -1,8 +1,8 @@
 export type Course = {
-    id?: string; // TODO: make obligatory
+    id?: string;
     title: string;
     description: string;
     creationDate: string;
     duration: number;
-    authors: any; // TODO: update type
+    authors: any[]; // TODO: update type
   };

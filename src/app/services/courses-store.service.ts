@@ -24,42 +24,51 @@ export class CoursesStoreService {
 
   createCourse(course: Course) {
     this.isLoading$$.next(true);
-    this.coursesService.createCourse(course).subscribe(course => {
-      console.log(course); // TODO
-      // this.courses$$.next(this.courses$$.getValue().push(course))
+    this.coursesService.createCourse(course).subscribe(response => {
+      let courses = this.courses$$.getValue();
+      // @ts-ignore
+      courses.push(response.result);
+      this.courses$$.next(courses);
     })
     this.isLoading$$.next(false);
   }
 
   editCourse(course: Course) {
     this.isLoading$$.next(true);
-    this.coursesService.editCourse(course).subscribe(course => {
-      console.log(course); // TODO
+    this.coursesService.editCourse(course).subscribe(response => { 
+      // @ts-ignore
+      const editedCourse = response.result;
+      let courses = this.courses$$.getValue();
+      let index = courses.findIndex((course) => course.id === editedCourse.id);
+      courses.splice(index, 1, editedCourse)
+      this.courses$$.next(courses);
     })
     this.isLoading$$.next(false);
   }
   
   getCourse(id: string) {
-    return this.coursesService.getCourse(id)
+    return this.coursesService.getCourse(id);
   }
 
-  deleteCourse(id: string) { // TODO: check
-    // this.isLoading$$.next(true);
-    this.coursesService.deleteCourse(id).subscribe((result: any) => { // TODO: type
+  deleteCourse(id: string) {
+    this.isLoading$$.next(true);
+    this.coursesService.deleteCourse(id).subscribe((result: any) => {
       let courses = this.courses$$.getValue();
       let index = courses.findIndex((course) => course.id === result.id);
-      this.courses$$.next(courses.splice(index, 1));
+      courses.splice(index, 1)
+      this.courses$$.next(courses);
     })
-    // this.isLoading$$.next(false);
+    this.isLoading$$.next(false);
   }
 
   searchCourse(title: string) {
-    // dont like sending a request here, but seems it's a task requirement
+    this.isLoading$$.next(true);
     this.coursesService.getAll().subscribe((res: any) => {
       const regex = new RegExp(`^${title}`, 'gmi');
       const filteredCourses = res.result.filter((course:any) => regex.test(course.title));
       this.courses$$.next(filteredCourses);
     })
+    this.isLoading$$.next(false);
   }
 
 }

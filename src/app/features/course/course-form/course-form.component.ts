@@ -45,7 +45,7 @@ export class CourseFormComponent implements OnInit {
       this.coursesStoreService.getCourse(this.currentCourseId!).subscribe(course => {
         this.currentCourse = course;
         // @ts-ignore
-        const getFormArray = () => course.result.authors.map((author) => new FormControl(author))
+        const getFormArray = () => course.result.authors.map((author) => new FormControl(author));
         this.courseForm = new FormGroup({
           // @ts-ignore
           'title': new FormControl(course.result.title, Validators.required),
@@ -78,11 +78,11 @@ export class CourseFormComponent implements OnInit {
         ...this.courseForm.value, 
         id: this.currentCourseId
       }
-      delete reqBody.newAuthor
+      delete reqBody.newAuthor;
       this.coursesStoreService.editCourse(reqBody);
     } else {
       const reqBody = this.courseForm.value;
-      delete reqBody.newAuthor
+      delete reqBody.newAuthor;
       this.coursesStoreService.createCourse(reqBody);
     }
     (<FormArray>this.courseForm.get('authors')).clear();
@@ -97,6 +97,7 @@ export class CourseFormComponent implements OnInit {
       (<FormArray>this.courseForm.get('authors')).push(control);
       (<FormControl>this.courseForm.get('newAuthor.authorName')).reset()
     }
+    this.authorStoreService.addAuthor(value);
   }
 
   onRemoveAuthor(id: number) {

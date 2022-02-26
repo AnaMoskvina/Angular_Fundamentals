@@ -13,7 +13,6 @@ export class CourseCardComponent implements OnInit {
   authors: any;
 
   constructor(public authorsStoreService: AuthorsStoreService) { 
-    this.authors = authorsStoreService.getAuthor('9b87e8b8-6ba5-40fc-a439-c4e30a373d36')
   } 
 
   ngOnInit(): void {

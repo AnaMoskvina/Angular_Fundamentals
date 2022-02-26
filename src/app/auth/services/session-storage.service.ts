@@ -8,7 +8,7 @@ export class SessionStorageService {
   constructor(@Inject(Window) private window: Window) {}
 
   setToken(token: string) {
-    return this.window.sessionStorage.setItem('token', token); // TODO: name of the token ?
+    return this.window.sessionStorage.setItem('token', token);
   }
 
   getToken(){

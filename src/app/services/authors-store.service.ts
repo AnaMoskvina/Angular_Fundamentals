@@ -7,13 +7,13 @@ interface Author {
   id: string
 }
 
-// interface AuthorServiceResponse {
-//   successful: true,
-//   result: {
-//     name: string,
-//     id: string
-//   }
-// }
+interface AuthorServiceResponse {
+  successful: true,
+  result: {
+    name: string,
+    id: string
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -37,17 +37,21 @@ export class AuthorsStoreService {
 
   addAuthor(name: string) {
     this.isLoading$$.next(true);
-    this.authorService.addAuthor(name).subscribe(response => {
-      console.log(response);
-      // this.authors$$.next(this.authors$$.getValue().push(response)); //TODO
-    })
-    this.isLoading$$.next(false);
+    this.authorService.addAuthor(name)
+      .pipe(
+        //@ts-ignore
+        map((response: AuthorServiceResponse) => response.result)
+      ).subscribe(result => {
+        //@ts-ignore
+      this.authors$$.next(this.authors$$.getValue().push(result));
+    });
+    this.isLoading$$.next(true);
   }
 
   getAuthor(id: string) {
     return this.authorService.getAuthor(id).pipe(
       //@ts-ignore
-      map((author) => author.result)
+      map((author) => author.result.name)
     )
   }
 }

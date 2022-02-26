@@ -40,10 +40,7 @@ export class AuthService {
   }
 
   register (user: User) {
-    this.http
-    .post(`${this.endpoint}/register`, user)
-    .subscribe((res: any) => {
-      alert(res.result); // TODO: use modal for success message and errors
-    })
+    return this.http
+    .post(`${this.endpoint}/register`, user);
   }
 }
