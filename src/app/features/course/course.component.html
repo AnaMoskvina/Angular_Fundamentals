@@ -1,1 +1,7 @@
-<p>course works!</p>
+<div class="container">
+    <h3>Title: {{ course.result.title }}</h3>
+    <p>Description: {{ course.result.description }}</p>
+    <p>Duration: {{ course.result.duration | duration}}</p>
+    <p>Authors: {{ course.result.authors | stringJoiner : ", "}}</p>
+    <app-button buttonText="Go back to courses" buttonIcon="arrow-left" (click)="goBack()"></app-button>
+</div>

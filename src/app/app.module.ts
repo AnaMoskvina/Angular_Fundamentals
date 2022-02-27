@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoursesModule } from './features/courses/courses.module';
-import { LoginModule } from './features/login/login.module';
-import { RegistrationModule } from './features/registration/registration.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CourseModule } from './features/course/course.module';
 import { reducers, effects } from './store';
@@ -12,6 +9,9 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './auth/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -20,9 +20,6 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CoursesModule,
-    LoginModule,
-    RegistrationModule,
     FontAwesomeModule,
     CourseModule,
     StoreModule.forRoot(reducers),
@@ -32,7 +29,14 @@ import { environment } from '../environments/environment';
       logOnly: environment.production,
       autoPause: true,
     }),
+    AppRoutingModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: Window, useValue: window }
+  ]
 })
 export class AppModule { }

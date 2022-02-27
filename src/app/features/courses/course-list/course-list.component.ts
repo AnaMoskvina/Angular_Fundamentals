@@ -9,8 +9,8 @@ import { Course } from '../courses.types';
 })
 export class CourseListComponent implements OnInit {
 
-  @Input() courses?: Course[];
-  @Input() editable: boolean = true;
+  @Input() courses?: any;
+  @Input() editable: boolean = false;
   @Output() removeEvent = new EventEmitter<Course>();
   @Output() editEvent = new EventEmitter<Course>();
   @Output() showEvent = new EventEmitter<Course>();

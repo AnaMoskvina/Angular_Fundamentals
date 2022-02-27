@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-course-edit-page',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseEditPageComponent implements OnInit {
 
-  constructor() { }
+  editMode: boolean;
+
+  constructor(
+    private route: ActivatedRoute) {
+    this.editMode = this.route.snapshot.url[0].path === 'edit' ? true : false;
+  }
 
   ngOnInit(): void {
   }

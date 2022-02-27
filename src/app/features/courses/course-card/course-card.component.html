@@ -5,8 +5,8 @@
     </div>
     <div class="card-right">
         <p><span class="subtitle">Authors: </span>{{ course.authors | stringJoiner : ", "}}</p>
-        <p><span class="subtitle">Duration: </span>{{course.duration | duration }}</p>
-        <p><span class="subtitle">Created: </span>{{ course.creationDate | creationDate }}</p>
+        <p><span class="subtitle">Duration: </span>{{ course.duration | duration }}</p>
+        <p><span class="subtitle">Created: </span>{{ course.creationDate }}</p>
         <div class="buttons">
             <ng-content></ng-content>
         </div>

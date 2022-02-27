@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { formatDate } from '@angular/common';
 import { Course } from '../courses.types';
+import { AuthorsStoreService } from 'src/app/services/authors-store.service';
 
 @Component({
   selector: 'app-course-card',
@@ -9,9 +9,11 @@ import { Course } from '../courses.types';
 })
 export class CourseCardComponent implements OnInit {
 
-  @Input() course!: Course;
+  @Input() course!: any;
+  authors: any;
 
-  constructor() { }
+  constructor(public authorsStoreService: AuthorsStoreService) { 
+  } 
 
   ngOnInit(): void {
   }
