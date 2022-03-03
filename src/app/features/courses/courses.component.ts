@@ -4,6 +4,7 @@ import { CoursesStoreService } from 'src/app/services/courses-store.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { Router } from '@angular/router';
+import { UserStateFacade } from 'src/app/user/store/user.facade';
 
 @Component({
   selector: 'app-courses',
@@ -24,14 +25,16 @@ export class CoursesComponent implements OnInit {
   constructor(public coursesStoreService:CoursesStoreService, 
     public authService: AuthService,
     public userStoreService: UserStoreService,
-    private router: Router) {
-    }
+    private router: Router,
+    private userStateFacade: UserStateFacade
+    ) { }
 
   ngOnInit(): void {
-    this.coursesStoreService.getAll();
-    this.userStoreService.getUser();
-    this.userStoreService.name$.subscribe((name: string) => this.user = name);
-    this.userStoreService.isAdmin$.subscribe((isAdmin: boolean) => this.isAdmin = isAdmin);
+    this.userStateFacade.getUser()
+    // this.coursesStoreService.getAll();
+    // this.userStoreService.getUser();
+    // this.userStoreService.name$.subscribe((name: string) => this.user = name);
+    // this.userStoreService.isAdmin$.subscribe((isAdmin: boolean) => this.isAdmin = isAdmin);
   }
 
   removeItem(currentCourse: Course) {

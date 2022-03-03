@@ -1,12 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 
 export const requestCurrentUser = createAction(
-  '[User] Request current user',
-  props<{id: string}>()
+  '[User] Request current user'
 );
 
 export const requestCurrentUserSuccess = createAction(
-    '[User] Request current user success'
+    '[User] Request current user success',
+    props<{ user: {name: string, isAdmin: boolean }}>()
 )
 
 export const requestCurrentUserFail = createAction(
