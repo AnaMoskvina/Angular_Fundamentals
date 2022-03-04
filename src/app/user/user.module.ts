@@ -4,14 +4,14 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/user.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effects'
-
+import { userFeatureKey } from './store/user.reducer'
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forFeature('user', userReducer),
+    StoreModule.forFeature(userFeatureKey, userReducer),
     EffectsModule.forFeature([UserEffects])
   ]
 })

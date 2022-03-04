@@ -1,20 +1,34 @@
 import { createAction, props } from '@ngrx/store';
 
+export type UserToLogin = {
+    email: string,
+    name: string
+}
+
+export type UserToRegister = {
+    email: string,
+    name: string,
+    password: string
+}
+
 export const requestLogin = createAction(
-    '[Auth] Request login'
+    '[Auth] Request login',
+    props<{ body: UserToLogin}>()
 );
 
 export const requestLoginSuccess = createAction(
     '[Auth] Request login success',
-    props<{ result: {}}>() //TODO: type
+    props<{ token: any }>()
 );
 
 export const requestLoginFail = createAction(
-    '[Auth] Request login fail'
+    '[Auth] Request login fail',
+    props<{ errorMessage: string}>() //TODO: type
 );
 
 export const requestRegister = createAction(
-    '[Auth] Request register'
+    '[Auth] Request register',
+    props<{ body: UserToRegister}>()
 );
 
 export const requestRegisterSuccess = createAction(
@@ -31,6 +45,5 @@ export const requestLogout = createAction(
 );
 
 export const requestLogoutSuccess = createAction(
-    '[Auth] Request logout success',
-    props<{ result: {}}>() //TODO: type
+    '[Auth] Request logout success'
 );

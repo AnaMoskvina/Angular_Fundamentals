@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SessionStorageService } from './session-storage.service';
 import { User } from '../../user/services/user.types';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient, 
-    private sessionStorage: SessionStorageService,
-    private router: Router) { }
+    private sessionStorage: SessionStorageService) { }
 
   login(user: User) {
     this.http

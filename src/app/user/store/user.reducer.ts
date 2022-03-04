@@ -1,6 +1,8 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as UserActions from './user.actions';
 
+export const userFeatureKey = 'user';
+
 export interface UserState {
     name: string
     isAdmin: boolean

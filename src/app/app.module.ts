@@ -12,6 +12,12 @@ import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/interceptors/token.interceptor';
+// import { CoursesEffects } from './store/courses/courses.effects';
+// import { coursesReducer } from './store/courses/courses.reducer';
+// import { AuthEffects } from './auth/store/auth.effects';
+// import { authReducer } from './auth/store/auth.reducer';
+// import { AuthorsEffects } from './store/authors/authors.effects';
+// import { authorsReducer } from './store/authors/authors.reducer';
 
 @NgModule({
   declarations: [
@@ -22,8 +28,8 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     AppRoutingModule,
     FontAwesomeModule,
     CourseModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot(effects),
+    StoreModule.forRoot({}), // !
+    // EffectsModule.forRoot([]), // !
     StoreDevtoolsModule.instrument({ // settings from doc example
       maxAge: 25,
       logOnly: environment.production,
@@ -31,7 +37,7 @@ import { TokenInterceptor } from './auth/interceptors/token.interceptor';
     }),
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [AppComponent],
   providers: [
