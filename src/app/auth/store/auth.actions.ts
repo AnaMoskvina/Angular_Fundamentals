@@ -18,12 +18,12 @@ export const requestLogin = createAction(
 
 export const requestLoginSuccess = createAction(
     '[Auth] Request login success',
-    props<{ token: any }>()
+    props<{ token: string }>()
 );
 
 export const requestLoginFail = createAction(
     '[Auth] Request login fail',
-    props<{ errorMessage: string}>() //TODO: type
+    props<{ result: string}>()
 );
 
 export const requestRegister = createAction(
@@ -32,12 +32,12 @@ export const requestRegister = createAction(
 );
 
 export const requestRegisterSuccess = createAction(
-    '[Auth] Request register success',
-    props<{ result: {}}>() //TODO: type
+    '[Auth] Request register success'
 );
 
 export const requestRegisterFail = createAction(
-    '[Auth] Request register fail'
+    '[Auth] Request register fail',
+    props<{ errors: string[]}>()
 );
 
 export const requestLogout = createAction(

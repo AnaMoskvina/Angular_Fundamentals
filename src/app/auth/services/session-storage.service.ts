@@ -12,7 +12,7 @@ export class SessionStorageService {
   }
 
   getToken(){
-    return this.window.sessionStorage.getItem('token');
+    return this.window.sessionStorage.getItem('token') || '';
   }
 
   deleteToken() {

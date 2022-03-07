@@ -15,16 +15,27 @@ const initialState: AuthState = {
     errorMessage: ''
 }
 
-export const authReducer = createReducer(
+const reducer = createReducer(
     initialState,
-    on(AuthActions.requestLogin, state => ({ ...state})), // TODO, boilerplate
-    on(AuthActions.requestLoginSuccess, (state, result ) => ({ ...state, ...result})), // TODO, boilerplate
-    on(AuthActions.requestLoginFail, state => ({ ...state})),// TODO, boilerplate
-    on(AuthActions.requestRegister, state => ({ ...state})), // TODO, boilerplate
-    on(AuthActions.requestRegisterSuccess, (state, result ) => ({ ...state, ...result})), // TODO, boilerplate
-    on(AuthActions.requestRegisterFail, state => ({ ...state})),// TODO, boilerplate
-    on(AuthActions.requestLogout, state => ({ ...state})), // TODO, boilerplate
-    on(AuthActions.requestLogoutSuccess, (state, result ) => ({ ...state, ...result})), // TODO, boilerplate
+    on(AuthActions.requestLogin, state => ({ ...state})), 
+    on(AuthActions.requestLoginSuccess, (_,  { token }) => ({ 
+        isAuthorized: true, 
+        token: token,
+        errorMessage: ''
+        })),
+    on(AuthActions.requestLoginFail, (_,  { result }) => ({
+        isAuthorized: false, 
+        token: '',
+        errorMessage: result
+        })),
+    on(AuthActions.requestRegister, state => ({ ...state})),
+    on(AuthActions.requestRegisterSuccess, (state ) => ({ ...state })),
+    on(AuthActions.requestRegisterFail, (state, { errors }) => ({
+        ...state,
+        errorMessage: errors.join(', ')
+        })),
+    on(AuthActions.requestLogout, state => ({ ...state})),
+    on(AuthActions.requestLogoutSuccess, () => ({ ...initialState })),
   );
 
-// TODO: wrap reducer with arrow function??
+  export const authReducer = (state: AuthState, action: Action) => reducer(state, action);

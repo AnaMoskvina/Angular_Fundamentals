@@ -4,30 +4,41 @@ import * as AuthorsActions from './authors.actions';
 export const authorsFeatureKey = 'authors';
 
 interface Author {
-    name: string,
-    id: string
-  }
+  name: string,
+  id: string
+}
 
 export interface AuthorsState {
-    authors: Author[],
-    addedAuthor: Author
+  authors: Author[],
+  addedAuthor: Author
 }
 
 const initialState: AuthorsState = {
-    authors: [],
-    addedAuthor: {name: '', id: ''}
+  authors: [],
+  addedAuthor: {name: '', id: ''}
 }
 
-export const authorsReducer = (state: AuthorsState, action: Action) => {
-   return createReducer(
-        initialState,
-        on(AuthorsActions.requestAuthors, state => ({ ...state})), // TODO, boilerplate
-        on(AuthorsActions.requestAuthorsSuccess, state => ({ ...state})), // TODO, boilerplate
-        on(AuthorsActions.requestAuthorsFail, state => ({ ...state})),// TODO, boilerplate
-        on(AuthorsActions.requestAddAuthor, state => ({ ...state})), // TODO, boilerplate
-        on(AuthorsActions.requestAddAuthorFail, state => ({ ...state})), // TODO, boilerplate
-        on(AuthorsActions.resetAddedAuthor,state => ({ ...state})),// TODO, boilerplate
-      );
-}
+const reducer = createReducer(
+    initialState,
+    on(AuthorsActions.requestAuthors, state => ({ ...state})),
+    on(AuthorsActions.requestAuthorsSuccess, (state, { result }) => ({
+      ...state,
+      authors: result
+    })),
+    on(AuthorsActions.requestAuthorsFail, state => ({ ...state, authors: []})),
+    on(AuthorsActions.requestAddAuthor, state => ({ ...state})),
+    on(AuthorsActions.requestAddAuthorSuccess, (state, { result }) => ({
+      ...state,
+      addedAuthor: { name: result.name, id: result.id }
+    })),
+    on(AuthorsActions.requestAddAuthorFail, state => ({
+      ...state, 
+      addedAuthor: {name: '', id: ''}
+    })),
+    on(AuthorsActions.resetAddedAuthor, (state) => ({
+      ...state, 
+      addedAuthor: { name: '', id: ''}
+    }))
+  );
 
-// TODO: wrap in arrow function?
+export const authorsReducer = (state: AuthorsState, action: Action) => reducer(state, action);

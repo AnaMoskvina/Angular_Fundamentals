@@ -6,61 +6,76 @@ export const requestAllCourses = createAction(
 );
 
 export const requestAllCoursesSuccess = createAction(
-  '[Courses] Request courses success'
-  // props<{ user: {name: string, isAdmin: boolean }}>()
+  '[Courses] Request courses success',
+  props<{ result: Course[] }>()
 );
 
 export const requestAllCoursesFail = createAction(
-  '[Courses] Request courses fail'
+  '[Courses] Request courses fail',
+  props<{ error: string }>()
+);
+
+export const requestFilteredCourses = createAction(
+  '[Courses] Request filtered courses',
+  props<{ searchValue: string }>()
+);
+
+export const requestFilteredCoursesSuccess = createAction(
+  '[Courses] Request filtered courses success',
+  props<{ courses: Course[] }>()
 );
 
 export const requestSingleCourse = createAction(
   '[Courses] Request single course',
-  props<{id: string}>()
+  props<{ id: string }>()
 );
   
 export const requestSingleCourseSuccess = createAction(
   '[Courses] Request single course success',
-  props<{id: string}>() // TODO: add type
+  props<{ result: Course }>()
 );
   
 export const requestSingleCourseFail = createAction(
   '[Courses] Request single course fail',
-);
+  props<{ error: string }>()
+); 
 
 export const requestDeleteCourse = createAction(
   '[Courses] Request delete course',
-  props<{id: string}>() // TODO: add type
+  props<{ id: string }>()
 );
   
 export const requestDeleteCourseFail = createAction(
   '[Courses] Request delete course fail',
+  props<{ error: string }>()
 );
 
 export const requestEditCourse = createAction(
   '[Courses] Request edit course',
-  props<{course: Course}>()
+  props<{ course: Course }>()
 );
   
 export const requestEditCourseSuccess = createAction(
   '[Courses] Request edit course success',
-  props<{course: Course}>() // TODO: add type
+  props<{ result: Course }>()
 );
   
 export const requestEditCourseFail = createAction(
   '[Courses] Request edit course fail',
+  props<{ error: string }>()
 );
 
 export const requestCreateCourse = createAction(
   '[Courses] Request create course',
-  props<{course: Course}>() // TODO: add type
+  props<{ course: Course }>()
 );
   
 export const requestCreateCourseSuccess = createAction(
   '[Courses] Request create course success',
-  props<{id: string}>() // TODO: add type
+  props<{ result: Course }>()
 );
   
 export const requestCreateCourseFail = createAction(
   '[Courses] Request create course fail',
+  props<{ error: string }>()
 );

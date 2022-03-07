@@ -14,14 +14,14 @@ export class AuthEffects {
     ) { }
 
         // !TODO 
-    //     login$ = createEffect(() => this.actions$.pipe(
+        login$ = createEffect(() => this.actions$.pipe(
     //     ofType('[Auth] Request login'),
     //     mergeMap(() => this.authService.login() // !TODO does not return ObservableInput
     //         .pipe(
     //         // @ts-ignore
     //         map(response => requestLoginSuccess( { response.token })),
-    //         catchError((err) => of(requestLoginFail(err.errorMessage)))
+    //         catchError((res) => of(requestLoginFail(res.result)))
     //    ))
-    // ))
+    ))
 
 }

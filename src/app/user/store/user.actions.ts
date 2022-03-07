@@ -5,10 +5,10 @@ export const requestCurrentUser = createAction(
 );
 
 export const requestCurrentUserSuccess = createAction(
-    '[User] Request current user success',
-    props<{ user: {name: string, isAdmin: boolean }}>()
+  '[User] Request current user success',
+  props<{ result: any }>()
 )
 
 export const requestCurrentUserFail = createAction(
-    '[User] Request current user fail'
+  '[User] Request current user fail'
 )

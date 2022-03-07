@@ -7,5 +7,5 @@ export const isSearchingStateSelector = createSelector(getCoursesState, (state: 
 export const isSingleCourseLoadingSelector = createSelector(getCoursesState, (state: CoursesState) => state.isSingleCourseLoading);
 export const getCourses = createSelector(getCoursesState, (state: CoursesState) => state.courses);
 export const getAllCourses = createSelector(getCoursesState, (state: CoursesState) => state.allCourses);
-export const getCourse = createSelector(getCoursesState, (state: CoursesState) => state.courses); // ?? we dont have course field in state
+export const getCourse = createSelector(getCoursesState, (state: CoursesState) => state.course);
 export const getErrorMessage = createSelector(getCoursesState, (state: CoursesState) => state.errorMessage);

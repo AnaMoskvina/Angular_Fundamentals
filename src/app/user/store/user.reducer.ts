@@ -13,11 +13,11 @@ const initialState: UserState = {
     isAdmin: false
 }
 
-export const userReducer = createReducer(
+export const reducer = createReducer(
     initialState,
-    on(UserActions.requestCurrentUser, state => ({ ...state})), // TODO, boilerplate
-    on(UserActions.requestCurrentUserSuccess, (_, response ) => ({ ...response.user})), // TODO, boilerplate
-    on(UserActions.requestCurrentUserFail, state => ({ ...state})),// TODO, boilerplate
+    on(UserActions.requestCurrentUser, state => ({ ...state })), 
+    on(UserActions.requestCurrentUserSuccess, (_, { result } ) => ({ name: result.name, isAdmin: result.role === 'admin' })), 
+    on(UserActions.requestCurrentUserFail, _ => ({ ...initialState})),
   );
 
-// TODO: wrap reducer with arrow function ??
+  export const userReducer = (state: UserState, action: Action) => reducer(state, action);

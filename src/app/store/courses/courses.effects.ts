@@ -11,9 +11,11 @@ import {
     requestEditCourseSuccess,
     requestEditCourseFail,
     requestCreateCourseSuccess,
-    requestCreateCourseFail
+    requestCreateCourseFail,
+    requestFilteredCoursesSuccess
 } from './courses.actions';
 import { of } from 'rxjs';
+import { CoursesStateFacade } from './courses.facade';
 
 @Injectable()
 export class CoursesEffects {
@@ -21,6 +23,7 @@ export class CoursesEffects {
     constructor(
         private actions$: Actions,
         private coursesService: CoursesService,
+        private coursesStateFacade: CoursesStateFacade
     ) { }
 
     getAll$ = createEffect(() => this.actions$.pipe(
@@ -28,20 +31,30 @@ export class CoursesEffects {
         mergeMap(() => this.coursesService.getAll()
             .pipe(
                 // @ts-ignore
-                map(courses => requestAllCoursesSuccess({ courses })),
-                catchError(() => of(requestAllCoursesFail()))
+                map(response => requestAllCoursesSuccess({ result: response.result })),
+                catchError((error) => of(requestAllCoursesFail(error)))
             ))
     ))
 
-    // ? filteredCourses$? --- we dont have method for getting filtered results in service
+    filteredCourses$ = createEffect(() => this.actions$.pipe(
+        ofType('[Courses] Request filtered courses'),
+        mergeMap((searchValue) => this.coursesStateFacade.allCourses$
+            .pipe(  
+                map(courses => {
+                    const regex = new RegExp(`^${searchValue}`, 'gmi');
+                    const filteredCourses = courses.filter((course:any) => regex.test(course.title));
+                    return requestFilteredCoursesSuccess({ courses: filteredCourses })
+                })
+            )
+    )))
 
     getSpecificCourse$ = createEffect(() => this.actions$.pipe(
         ofType('[Courses] Request single course'),
         mergeMap((id: string) => this.coursesService.getCourse(id)
             .pipe(
                 // @ts-ignore
-                map(course => requestSingleCourseSuccess({ course })),
-                catchError(() => of(requestSingleCourseFail()))
+                map(response => requestSingleCourseSuccess({ result: response.result })),
+                catchError((error) => of(requestSingleCourseFail(error)))
             ))
     ))
 
@@ -50,8 +63,8 @@ export class CoursesEffects {
         mergeMap(() => this.coursesService.getAll()
             .pipe(
                 // @ts-ignore
-                map(course => requestSingleCourseSuccess({ course })), // ?? what to do here?
-                catchError(() => of(requestDeleteCourseFail()))
+                map(response => requestSingleCourseSuccess({ result: response.result })),
+                catchError((error) => of(requestDeleteCourseFail(error)))
             ))
     ))
 
@@ -60,8 +73,8 @@ export class CoursesEffects {
         mergeMap((course) => this.coursesService.editCourse(course)
             .pipe(
                 // @ts-ignore
-                map(course => requestEditCourseSuccess({ course })), // ?? what to do here?
-                catchError(() => of(requestEditCourseFail()))
+                map(response => requestEditCourseSuccess({ result: response.result })),
+                catchError((error) => of(requestEditCourseFail(error)))
             ))
     ))
 
@@ -70,11 +83,13 @@ export class CoursesEffects {
         mergeMap((course) => this.coursesService.createCourse(course)
             .pipe(
                 // @ts-ignore
-                map(course => requestCreateCourseSuccess({ course })), // ?? what to do here?
-                catchError(() => of(requestCreateCourseFail()))
+                map(response => requestCreateCourseSuccess({ result: response.result })),
+                catchError((error) => of(requestCreateCourseFail(error)))
             ))
     ))
 
-    // redirectToTheCoursesPages // ??
+    // redirectToTheCoursesPages = createEffect(() => this.actions$.pipe(
+    //     ofType(requestCreateCourseSuccess)
+    // ), { dispatch: false })
 
 }

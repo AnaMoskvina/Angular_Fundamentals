@@ -30,11 +30,10 @@ export class CoursesComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.userStateFacade.getUser()
-    // this.coursesStoreService.getAll();
-    // this.userStoreService.getUser();
-    // this.userStoreService.name$.subscribe((name: string) => this.user = name);
-    // this.userStoreService.isAdmin$.subscribe((isAdmin: boolean) => this.isAdmin = isAdmin);
+    this.coursesStoreService.getAll();
+    this.userStoreService.getUser();
+    this.userStoreService.name$.subscribe((name: string) => this.user = name);
+    this.userStoreService.isAdmin$.subscribe((isAdmin: boolean) => this.isAdmin = isAdmin);
   }
 
   removeItem(currentCourse: Course) {

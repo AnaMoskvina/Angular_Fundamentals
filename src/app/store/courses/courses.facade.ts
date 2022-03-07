@@ -6,7 +6,8 @@ import {
     requestSingleCourse,
     requestDeleteCourse,
     requestEditCourse,
-    requestCreateCourse
+    requestCreateCourse,
+    requestFilteredCourses
 } from './courses.actions';
 import { 
     isAllCoursesLoadingSelector, 
@@ -19,7 +20,9 @@ import {
 } from './courses.selectors';
 import { Course } from './courses.reducer';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class CoursesStateFacade {
     isAllCoursesLoading$ = this.store.pipe(select(isAllCoursesLoadingSelector));
     isSingleCourseLoading$ = this.store.pipe(select(isSingleCourseLoadingSelector));
@@ -36,23 +39,22 @@ export class CoursesStateFacade {
     }
 
     getSingleCourse(id: string) {
-        this.store.dispatch(requestSingleCourse({id}));
+        this.store.dispatch(requestSingleCourse({ id }));
     }
 
-    // getFilteredCourses(searchValue) {
-    //     // we dont have  requestFilteredCourses in service
-    //     this.store.dispatch(requestFilteredCourses({ searchValue })); 
-    // }
+    getFilteredCourses(searchValue: string) {
+        this.store.dispatch(requestFilteredCourses({ searchValue })); 
+    }
 
     editCourse(course: Course) {
-        this.store.dispatch(requestEditCourse({course}));
+        this.store.dispatch(requestEditCourse({ course }));
     }
 
     createCourse(course: Course) {
-        this.store.dispatch(requestCreateCourse({course}));
+        this.store.dispatch(requestCreateCourse({ course }));
     }
 
     deleteCourse(id: string) {
-        this.store.dispatch(requestDeleteCourse({id}));
+        this.store.dispatch(requestDeleteCourse({ id }));
     }
 }
