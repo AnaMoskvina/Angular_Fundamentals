@@ -10,7 +10,7 @@ import { Course } from '../courses.types';
 export class CourseListComponent implements OnInit {
 
   @Input() courses?: any;
-  @Input() editable: boolean = false;
+  @Input() editable: boolean | null = false;
   @Output() removeEvent = new EventEmitter<Course>();
   @Output() editEvent = new EventEmitter<Course>();
   @Output() showEvent = new EventEmitter<Course>();

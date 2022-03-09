@@ -1,12 +1,12 @@
 <app-header>
     <ng-template [ngIf]="authService.isAuthorized$ | async">
-        <p>{{ userStoreService.name$ | async }}</p>
+        <p>{{ userStateFacade.name$ | async }}</p>
         <app-button buttonText="logout"
         (click)="logout()">
         </app-button>
     </ng-template>
 </app-header>
-<ng-template [ngIf]="isAdmin">
+<ng-template [ngIf]="userStateFacade.isAdmin$ | async">
     <app-info [title]="infoTitle" [text]="infoText">
         <app-button [buttonText]="infoButtonText"
         (click)="addCourse()">
@@ -15,8 +15,8 @@
 </ng-template>
 <app-search (searchEvent)="handleSearch($event)"></app-search>
 <app-course-list 
-    [courses]="coursesStoreService.courses$"
-    [editable]="isAdmin"
+    [courses]="courses"
+    [editable]="userStateFacade.isAdmin$| async"
     (removeEvent)="removeItem($event)"
     (editEvent)="editItem($event)"
     (showEvent)="showItem($event)">

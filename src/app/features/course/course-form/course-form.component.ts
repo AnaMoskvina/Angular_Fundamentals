@@ -4,6 +4,7 @@ import { nameValidator } from 'src/app/shared/directives';
 import { AuthorsStoreService } from 'src/app/services/authors-store.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CoursesStoreService } from 'src/app/services/courses-store.service';
+import { CoursesStateFacade } from 'src/app/store/courses/courses.facade';
 
 type GetCourseResult = {
   result: {
@@ -32,6 +33,7 @@ export class CourseFormComponent implements OnInit {
   constructor(private authorStoreService: AuthorsStoreService,
     private router: Router,
     private route: ActivatedRoute,
+    public coursesStateFacade: CoursesStateFacade,
     public coursesStoreService: CoursesStoreService
     ) {
       this.isEditMode = this.route.snapshot.url[0].path === 'edit' ? true : false;
@@ -42,7 +44,10 @@ export class CourseFormComponent implements OnInit {
     if (this.isEditMode) {
       const idQuery = this.route.snapshot.params['id'];
       this.currentCourseId = idQuery.slice(1, idQuery.length);
+
       this.coursesStoreService.getCourse(this.currentCourseId!).subscribe(course => {
+        // this.coursesStateFacade.getSingleCourse(this.currentCourseId!)
+        // this.coursesStateFacade.course$.subscribe(course => {
         this.currentCourse = course;
         // @ts-ignore
         const getFormArray = () => course.result.authors.map((author) => new FormControl(author));

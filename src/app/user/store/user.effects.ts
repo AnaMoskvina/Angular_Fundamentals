@@ -18,7 +18,7 @@ export class UserEffects {
         mergeMap(() => this.userService.getUser()
             .pipe(
                 // @ts-ignore
-                map(response => requestCurrentUserSuccess(response.user)),
+                map(response => requestCurrentUserSuccess(response)),
                 catchError(() => of(requestCurrentUserFail()))
             ))
     ))

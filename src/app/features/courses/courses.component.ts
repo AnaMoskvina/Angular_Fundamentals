@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserStoreService } from 'src/app/user/services/user-store.service';
 import { Router } from '@angular/router';
 import { UserStateFacade } from 'src/app/user/store/user.facade';
+import { CoursesStateFacade } from 'src/app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-courses',
@@ -13,27 +14,25 @@ import { UserStateFacade } from 'src/app/user/store/user.facade';
 })
 export class CoursesComponent implements OnInit {
 
-  user = '';
-  isAdmin = false;
   showDeleteModal = false;
   infoTitle = 'You can also add new course';
   infoText = 'Please, use the "Add new course" button';
   infoButtonText = 'Add new couse';
-  courses = [];
   courseToDelete?: any;
+  courses?: any;
 
   constructor(public coursesStoreService:CoursesStoreService, 
     public authService: AuthService,
     public userStoreService: UserStoreService,
     private router: Router,
-    private userStateFacade: UserStateFacade
+    public userStateFacade: UserStateFacade,
+    public coursesStateFacade: CoursesStateFacade
     ) { }
 
   ngOnInit(): void {
-    this.coursesStoreService.getAll();
-    this.userStoreService.getUser();
-    this.userStoreService.name$.subscribe((name: string) => this.user = name);
-    this.userStoreService.isAdmin$.subscribe((isAdmin: boolean) => this.isAdmin = isAdmin);
+    this.coursesStateFacade.getAllCourses();
+    this.courses = this.coursesStateFacade.allCourses$;
+    this.userStateFacade.getUser();
   }
 
   removeItem(currentCourse: Course) {
@@ -43,6 +42,7 @@ export class CoursesComponent implements OnInit {
 
   handleDeleteModalResult(result: boolean) {
     if (result) {
+      // this.coursesStateFacade.deleteCourse(this.courseToDelete);
       this.coursesStoreService.deleteCourse(this.courseToDelete);
     }
     this.showDeleteModal = false;
@@ -68,6 +68,7 @@ export class CoursesComponent implements OnInit {
   }
 
   handleSearch(query: string) {
+    // this.coursesStateFacade.getFilteredCourses(query);
     this.coursesStoreService.searchCourse(query);
   }
 

@@ -6,12 +6,12 @@ import { Directive, ElementRef } from '@angular/core';
 })
 export class TogglePasswordDirective {
 
-  shown: boolean = false;
+  shown: boolean = true;
 
   constructor(private el: ElementRef) { }
 
   toggle() {
-    if (this.shown) {
+    if (!this.shown) {
       this.el.nativeElement.setAttribute('type', 'text');
     } else {
       this.el.nativeElement.setAttribute('type', 'password');
